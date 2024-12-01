@@ -191,11 +191,11 @@ th, td {
   text-align: center;
 }
 th {
-  background-color: #ffd700;
-  color: #a30000;
+  background-color:   #a30000;
+  color: #ffd700;
 }
 td {
-  background-color: #d0d0d0;
+  background-color: rgb(243, 249, 167);
 }
 .delete-btn {
   cursor: pointer;

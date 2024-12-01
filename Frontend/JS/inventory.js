@@ -69,3 +69,47 @@ function confirmDelete() {
   hideModal();
 }
 
+/*edi wow */
+
+// Open Add Product Modal
+function openAddProductModal() {
+  document.getElementById("addProductModal").style.display = "block";
+}
+
+// Close Add Product Modal
+function closeAddProductModal() {
+  document.getElementById("addProductModal").style.display = "none";
+}
+
+// Update dashboard quantities
+function updateDashboard(flavor, quantity) {
+  const flavorId = `${flavor.toLowerCase()}-total`;
+  const flavorElement = document.getElementById(flavorId);
+
+  if (flavorElement) {
+      const currentQuantity = parseInt(flavorElement.textContent) || 0;
+      flavorElement.textContent = currentQuantity + quantity;
+  }
+}
+
+// Handle form submission
+document.getElementById("addProductForm").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form refresh
+
+  const productName = document.getElementById("productName").value.trim();
+  const quantity = parseInt(document.getElementById("quantity").value);
+
+  if (productName && quantity > 0) {
+      // Update the dashboard
+      updateDashboard(productName, quantity);
+
+      // Close modal
+      closeAddProductModal();
+
+      // Optionally add the product to the inventory table (implementation omitted)
+      console.log(`Product added: ${productName}, Quantity: ${quantity}`);
+  } else {
+      alert("Please provide a valid product name and quantity.");
+  }
+});
+
