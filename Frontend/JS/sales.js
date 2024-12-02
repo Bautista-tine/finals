@@ -66,14 +66,16 @@ addProductForm.addEventListener('submit', function (e) {
   closeAddProductModal();
 });
 
-
-// Function to filter rows by date
+/* filter */
 function filterByDate() {
   const selectedDate = document.getElementById('date').value; // Get the selected date in YYYY-MM-DD format
   const rows = document.querySelectorAll('table tbody tr'); // Select all rows in the table body
 
   rows.forEach(row => {
-    const rowDate = row.cells[1].textContent; // Extract the date from the second column of the row
+    const rowDateCell = row.cells[1]; // Ensure the second column exists
+    if (!rowDateCell) return; // Skip rows without a second column
+
+    const rowDate = rowDateCell.textContent.trim(); // Extract and trim the date text
     const formattedRowDate = new Date(rowDate).toISOString().split('T')[0]; // Format the row date to YYYY-MM-DD
 
     // Show or hide the row based on whether the dates match
@@ -87,5 +89,3 @@ function filterByDate() {
 
 // Attach event listener to the date input
 document.getElementById('date').addEventListener('input', filterByDate);
-
-

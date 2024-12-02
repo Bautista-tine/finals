@@ -24,10 +24,23 @@ label.logo {
   color: white;
   font-size: 25px;
   line-height: 70px;
-  padding: 0 100px;
+  padding: 0;
   font-weight: bold;
 }
-
+.image1{
+  border-radius: 50%;
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  left: 5px;
+}
+.logo {
+  color: white;
+  font-size: 25px;
+  line-height: 70px;
+  font-weight: bold;
+  margin-left: 60px;
+}	
 nav ul {
   float: right;
   margin-right: 20px;

@@ -28,21 +28,22 @@ addProductForm.addEventListener('submit', function (e) {
   const productId = `P-${productIdCounter.toString().padStart(4, '0')}`;
   productIdCounter++; // Increment counter for the next product
 
-  // Get current date
-  const currentDate = new Date().toLocaleDateString();
+  // Get the current date in YYYY-MM-DD format
+const currentDate = new Date();
+const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
-  // Create new table row
-  const newRow = document.createElement('tr');
-  newRow.innerHTML = `
-    <td>${productId}</td>
-    <td>${currentDate}</td>
-    <td>${productName}</td>
-    <td>${quantity}</td>
-    <td><span class="delete-btn" onclick="showModal(this)">🗑️</span></td>
-  `;
+// Create new table row
+const newRow = document.createElement('tr');
+newRow.innerHTML = `
+  <td>${productId}</td>
+  <td>${formattedDate}</td>
+  <td>${productName}</td>
+  <td>${quantity}</td>
+  <td><span class="delete-btn" onclick="showModal(this)">🗑️</span></td>
+`;
 
-  // Append the new row to the table
-  tableBody.appendChild(newRow);
+// Append the new row to the table
+tableBody.appendChild(newRow);
 
   // Close the modal and reset the form
   closeAddProductModal();
@@ -69,7 +70,6 @@ function confirmDelete() {
   hideModal();
 }
 
-/*edi wow */
 
 // Open Add Product Modal
 function openAddProductModal() {
@@ -113,3 +113,26 @@ document.getElementById("addProductForm").addEventListener("submit", function (e
   }
 });
 
+/* filter date */
+function filterByDate() {
+  const selectedDate = document.getElementById('date').value; // Get the selected date in YYYY-MM-DD format
+  const rows = document.querySelectorAll('table tbody tr'); // Select all rows in the table body
+
+  rows.forEach(row => {
+    const rowDateCell = row.cells[1]; // Ensure the second column exists
+    if (!rowDateCell) return; // Skip rows without a second column
+
+    const rowDate = rowDateCell.textContent.trim(); // Extract and trim the date text
+    const formattedRowDate = new Date(rowDate).toISOString().split('T')[0]; // Format the row date to YYYY-MM-DD
+
+    // Show or hide the row based on whether the dates match
+    if (selectedDate && formattedRowDate === selectedDate) {
+      row.style.display = ''; // Show the row
+    } else {
+      row.style.display = 'none'; // Hide the row
+    }
+  });
+}
+
+// Attach event listener to the date input
+document.getElementById('date').addEventListener('input', filterByDate);
